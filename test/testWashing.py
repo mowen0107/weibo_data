@@ -11,7 +11,8 @@ from washing import Washing
 
 def main():
     washing = Washing()
-    washing.run()
+    # washing.run()
+    washing.deleteWrongLines()
 
 if __name__ == '__main__':
     main()
