@@ -17,3 +17,13 @@ Author: HZT
 训练集的sum分布如何
 
 content要怎么从中选取关键词
+
+http://blog.csdn.net/xieyan0811/article/details/78750611
+
+http://blog.csdn.net/jingyi130705008/article/details/78257350
+
+http://blog.csdn.net/bryan__/article/details/50220229
+
+http://blog.csdn.net/fjssharpsword/article/details/78412803?locationNum=7&fps=1
+
+http://lemondy.github.io/2015/12/01/sina_weibo_big_data_competition/

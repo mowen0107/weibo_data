@@ -7,14 +7,11 @@
 '''
 import sys
 sys.path.append('..')
-from preprocessor import Preprocessor
+from washing import Washing
 
 def main():
-    preprocessor = Preprocessor()
-    testuid = preprocessor.originData['luid'][10483]
-    print(testuid)
-    print(testuid.replace('\t',','))
-
+    washing = Washing()
+    washing.run()
 
 if __name__ == '__main__':
     main()

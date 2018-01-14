@@ -26,9 +26,10 @@ class Preprocessor:
         ''' 读取训练集文件
         '''
         data = []
+        fileName = "weibo_train_data2.txt"
         try:
             data = pd.read_csv(
-                self.originPath + 'weibo_train_data.txt',
+                self.originPath + fileName,
                 encoding='utf8',
                 names=['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont'])
             print("length of data:", len(data))
