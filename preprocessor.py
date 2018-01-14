@@ -16,8 +16,10 @@ class Preprocessor:
     '''
 
     def __init__(self):
-        self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
-        self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        # self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
+        # self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        self.originPath = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
+        self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
         self.originData = self.readOriginTrainData()
 
     def readOriginTrainData(self):
