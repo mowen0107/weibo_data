@@ -5,10 +5,14 @@
     Last modified date: 20180114
     Last modified thing: 
 '''
+import pandas as pd
+import numpy as np
+from numpy import nan as NA
 
 
 class Washing():
-    ''' 对训练集进行清洗和校正
+    ''' 对训练集进行清洗
+        校正或者删除错误的行
     '''
 
     def __init__(self):
@@ -29,19 +33,37 @@ class Washing():
         self.writeFile(washedData)
         print("------DONE------")
 
+    def deleteWrongLines(self):
+        ''' 删除无效的行
+        '''
+        nameList = ['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont']
+        data = pd.read_csv(
+            self.outputPath + self.fileName, sep=',', names=nameList)
+        for index in data.index:
+            print("------Index:",index,data.loc[index]['fcs'])
+            fcs = data.loc[index]['fcs']
+            ccs = data.loc[index]['ccs']
+            lcs = data.loc[index]['lcs']
+            if pd.isnull(fcs) and pd.isnull(ccs) and pd.isnull(lcs):
+                print("------NA:", index)
+                data.drop(index,axis=0,inplace=True)
+        data.to_csv(self.outputPath+"washedTrainData.txt",index=False,sep=",")
+
     def readFile(self):
         ''' 读文件操作，返回一个很大的string
         '''
         originTrainData = None
+        originFile = None
         try:
             originFile = open(
                 self.originPath + self.fileName, 'r', encoding='utf-8')
             originTrainData = originFile.readlines()
-        except Exception as e:
+        except IOError as e:
             print("------ERROR LOG:", e)
             return None
         finally:
-            originFile.close()
+            if originFile != None:
+                originFile.close()
         return originTrainData
 
     def writeFile(self, washedData):
@@ -52,7 +74,7 @@ class Washing():
             washedFile = open(
                 self.outputPath + self.fileName, 'w+', encoding='utf-8')
             washedFile.writelines(washedData)
-        except Exception as e:
+        except IOError as e:
             print("------ERROR LOG:", e)
 
     def replaceTable(self, string):
@@ -60,5 +82,4 @@ class Washing():
         '''
         resultStr = string.replace('\t', ',')
         # print("------After replace:\n",resultStr)
-
         return resultStr
