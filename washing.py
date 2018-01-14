@@ -39,7 +39,7 @@ class Washing():
         ''' 进行测试集的清洗
         '''
         readFilePath = self.originPath + self.testDataFile
-        writeFilePath = self.outputPath+self.testDataFile
+        writeFilePath = self.outputPath + self.testDataFile
         originTestData = self.readFile(readFilePath)
         washedData = []
         for line in originTestData:
