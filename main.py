@@ -1,14 +1,17 @@
-''' Create time: 20180113
-    Author: HZT
-    Last modified time: 20180113
-    Last modified person: HZT
+# -*- coding: utf-8 -*-
+''' Author: HZT
+    Create date: 20180113
+    Last modified by: HZT
+    Last modified date: 20180113
     Last modified thing: 
 '''
-
-
+from preprocessor import Preprocessor
 
 def main():
-    pass
+    print("first python program on mac")
+    preprocessor = Preprocessor()
+    preprocessor.readOriginTrainData()
+
 
 if __name__ == '__main__':
     main()
