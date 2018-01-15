@@ -18,7 +18,7 @@ class Preprocessor:
 
     def __init__(self):
         self.trainDataDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        # self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
+        # self.trainDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/"
         self.trainDataFile = "washedTrainData.txt"
         self.trainData = self.readTrainData()
 

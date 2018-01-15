@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ''' Author: HZT
-    Create date: 20180114
+    Create date: 20180115
     Last modified by: HZT
     Last modified date: 20180115
     Last modified thing: 
@@ -10,7 +10,7 @@ sys.path.append('..')
 from preprocessor import Preprocessor
 
 def main():
-    preprocessor = Preprocessor()
+    # preprocessor = Preprocessor()
     # preprocessor.getUserFeature()
     print("------DONE------")
 
