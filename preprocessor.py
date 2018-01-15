@@ -16,26 +16,25 @@ class Preprocessor:
     '''
 
     def __init__(self):
-        self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
-        self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        # self.originPath = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
+        self.trainDataDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
         # self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
-        self.originData = self.readOriginTrainData()
+        self.trainDataFile = "washedTrainData.txt"
+        self.trainData = self.readTrainData()
 
-    def readOriginTrainData(self):
-        ''' 读取训练集文件
+    def readTrainData(self):
+        ''' 读取训练集文件,返回pandas格式的Dataframe
         '''
-        data = []
-        fileName = "weibo_train_data2.txt"
+        data = None
+        filePath = self.trainDataDir + self.trainDataFile
         try:
             data = pd.read_csv(
-                self.originPath + fileName,
+                filePath,
                 encoding='utf8',
-                names=['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont'])
-            print("length of data:", len(data))
+                header=0)
+            print("------Length of data:", len(data))
         except OSError as e:
-            print("ERROR LOG:", e)
-            print("找不到weibo_train_data.txt文件")
+            print("------ERROR LOG 打开训练集数据出错:", e)
+            print("------找不到" + filePath + "文件")
             return None
         try:
             data['fcs'] = data['fcs'].astype('int')
@@ -45,14 +44,14 @@ class Preprocessor:
             data['fcs'] = 0
             data['ccs'] = 0
             data['lcs'] = 0
-            print("ERROR LOG:", repr(e))
+            print("------ERROR LOG 数据类型转换时出错:", e)
         return data
 
-    def getUserFeature(self, originData):
+    def getUserFeature(self, trainData):
         ''' 得到用户特征，包括各项数值的极值、平均值
         '''
         userFeatureList = []
-        for line in originData:
+        for line in trainData:
             userFeature = {}
             luid = line['luid']
             mid = line['mid']
@@ -67,7 +66,7 @@ class Preprocessor:
     def getUserDistr(self):
         ''' 获得用户出现的次数
         '''
-        originData = copy.deepcopy(self.originData)
+        originData = copy.deepcopy(self.trainData)
         userList = []
         userDistr = []
         for luid in originData['luid']:

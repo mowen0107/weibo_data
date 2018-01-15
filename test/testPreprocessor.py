@@ -11,9 +11,9 @@ from preprocessor import Preprocessor
 
 def main():
     preprocessor = Preprocessor()
-    testuid = preprocessor.originData['luid'][10483]
-    print(testuid)
-    print(testuid.replace('\t',','))
+    # testuid = preprocessor.trainData['luid'][10483]
+    # print(testuid)
+    # print(testuid.replace('\t',','))
 
 
 if __name__ == '__main__':

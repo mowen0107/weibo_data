@@ -10,8 +10,6 @@ from preprocessor import Preprocessor
 
 def main():
     print("first python program on mac")
-    preprocessor = Preprocessor()
-    preprocessor.readOriginTrainData()
 
 
 if __name__ == '__main__':
