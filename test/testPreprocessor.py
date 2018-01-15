@@ -11,10 +11,8 @@ from preprocessor import Preprocessor
 
 def main():
     preprocessor = Preprocessor()
-    # testuid = preprocessor.trainData['luid'][10483]
-    # print(testuid)
-    # print(testuid.replace('\t',','))
-
+    preprocessor.getUserFeature()
+    print("------DONE------")
 
 if __name__ == '__main__':
     main()

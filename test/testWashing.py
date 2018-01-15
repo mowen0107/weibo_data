@@ -12,7 +12,9 @@ from washing import Washing
 def main():
     washing = Washing()
     # washing.washTrainData()
-    washing.washTestData()
+    # washing.washTestData()
+    washing.addSum()
+    print("------DONE------")
 
 if __name__ == '__main__':
     main()

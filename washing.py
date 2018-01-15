@@ -2,8 +2,8 @@
 ''' Author: HZT
     Create date: 20180114
     Last modified by: HZT
-    Last modified date: 20180114
-    Last modified thing: 
+    Last modified date: 20180115
+    Last modified thing: 增加sum字段
 '''
 import pandas as pd
 import numpy as np
@@ -16,10 +16,10 @@ class Washing():
     '''
 
     def __init__(self):
-        # self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
-        # self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        self.originPath = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
-        self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
+        self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
+        self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        # self.originPath = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
+        # self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
         self.trainDataFile = "weibo_train_data2.txt"
         self.testDataFile = "weibo_predict_data.txt"
 
@@ -67,6 +67,21 @@ class Washing():
                 data.drop(index, axis=0, inplace=True)
         data.to_csv(
             self.outputPath + "washedTrainData.txt", index=False, sep=",")
+
+    def addSum(self):
+        ''' 求出sum并写入文件中
+        '''
+        filePath = self.outputPath + "washedTrainData.txt"
+        newCols = ['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
+        trainData = pd.read_csv(filePath, sep=',', header=0)
+        trainData['sum'] = trainData.apply(
+            lambda x: x['fcs'] + x['ccs'] + x['lcs'], axis=1)
+        trainData['fcs'] = trainData['fcs'].astype('int')
+        trainData['ccs'] = trainData['ccs'].astype('int')
+        trainData['lcs'] = trainData['lcs'].astype('int')
+        trainData['sum'] = trainData['sum'].astype('int')
+        trainData = trainData.ix[:, newCols]
+        trainData.to_csv(self.outputPath + "washedTrainData.txt", index=False, sep=",")
 
     def readFile(self, filePath):
         ''' 读文件操作，返回一个很大的string

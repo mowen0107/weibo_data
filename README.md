@@ -15,6 +15,9 @@ washing.py
 # 预处理
 preprocessor.py
 
+## 得到用户特征值
+`luid,count,max_fcs,min_fcs,avg_fcs,max_ccs,min_ccs,avg_ccs,max_lcs,min_lcs,avg_lcs,max_sum,min_sum,avg_sum,above_avg_rate`
+
 要先对数据集有个大概的认识
 
 有多少条数据
@@ -27,13 +30,13 @@ preprocessor.py
 
 content要怎么从中选取关键词
 
+时间拆分成星期和时间段两个特征
+
 # 参考资料
 
 http://blog.csdn.net/xieyan0811/article/details/78750611
 
 http://blog.csdn.net/jingyi130705008/article/details/78257350
-
-http://blog.csdn.net/bryan__/article/details/50220229
 
 http://blog.csdn.net/fjssharpsword/article/details/78412803?locationNum=7&fps=1
 
