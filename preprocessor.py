@@ -58,11 +58,31 @@ class Preprocessor:
         fileName = "userfeature.txt"
         filePath = self.trainDataDir + fileName
         trainData = copy.deepcopy(self.trainData)
-        userFeature = trainData['luid'].value_counts()
-        userList = userFeature.index
+        userCount = trainData['luid'].value_counts()
+        userList = copy.deepcopy(userCount.index)
+        userCount.to_csv(
+            self.trainDataDir + "usercount.txt", index=True, sep=',')
+        userFeature = pd.read_csv(
+            self.trainDataDir + "usercount.txt",
+            names=['luid', 'count'],
+            sep=',')
+        max_fcs_list = []
+        min_fcs_list = []
+        avg_fcs_list = []
+        max_ccs_list = []
+        min_ccs_list = []
+        avg_ccs_list = []
+        max_lcs_list = []
+        min_lcs_list = []
+        avg_lcs_list = []
+        max_sum_list = []
+        min_sum_list = []
+        avg_sum_list = []
+        i = 0
         for user in userList:
             # 筛选出luid相同的行
-            subData = trainData.loc[(trainData['luid']==user)]
+            print("------DEBUG LOG luid:", i, user)
+            subData = trainData.loc[(trainData['luid'] == user)]
             max_fcs = subData['fcs'].max()
             min_fcs = subData['fcs'].min()
             avg_fcs = subData['fcs'].mean()
@@ -72,6 +92,34 @@ class Preprocessor:
             max_lcs = subData['lcs'].max()
             min_lcs = subData['lcs'].min()
             avg_lcs = subData['lcs'].mean()
-            break
-        # userFeature.to_csv(filePath, header=0, index=True, sep=',')
+            max_sum = subData['sum'].max()
+            min_sum = subData['sum'].min()
+            avg_sum = subData['sum'].mean()
+            max_fcs_list.append(max_fcs)
+            min_fcs_list.append(min_fcs)
+            avg_fcs_list.append(avg_fcs)
+            max_ccs_list.append(max_ccs)
+            min_ccs_list.append(min_ccs)
+            avg_ccs_list.append(avg_ccs)
+            max_lcs_list.append(max_lcs)
+            min_lcs_list.append(min_lcs)
+            avg_lcs_list.append(avg_lcs)
+            max_sum_list.append(max_sum)
+            min_sum_list.append(min_sum)
+            avg_sum_list.append(avg_sum)
+            i += 1
+        userFeature['max_fcs'] = max_fcs_list
+        userFeature['min_fcs'] = min_fcs_list
+        userFeature['avg_fcs'] = avg_fcs_list
+        userFeature['max_ccs'] = max_ccs_list
+        userFeature['min_ccs'] = min_ccs_list
+        userFeature['avg_ccs'] = avg_ccs_list
+        userFeature['max_lcs'] = max_lcs_list
+        userFeature['min_lcs'] = min_lcs_list
+        userFeature['avg_lcs'] = avg_lcs_list
+        userFeature['max_sum'] = max_sum_list
+        userFeature['min_sum'] = min_sum_list
+        userFeature['avg_sum'] = avg_sum_list
+        userFeature.to_csv(
+            self.trainDataDir + "userfeature.txt", index=False, sep=',')
         return userFeature
