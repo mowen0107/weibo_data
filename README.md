@@ -32,6 +32,11 @@ content要怎么从中选取关键词
 
 时间拆分成星期和时间段两个特征
 
+# 预测
+如果一个用户的`avg_sum`<1,那么取其`max_sum`作为预测值
+
+否则取其`avg_sum`作为预测值
+
 # 参考资料
 
 http://blog.csdn.net/xieyan0811/article/details/78750611
