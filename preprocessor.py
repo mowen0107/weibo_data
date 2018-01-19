@@ -17,8 +17,8 @@ class Preprocessor:
     '''
 
     def __init__(self):
-        self.trainDataDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        # self.trainDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/"
+        # self.trainDataDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        self.trainDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/traindata/"
         self.trainDataFile = "washedTrainData.txt"
         self.trainData = self.readTrainData()
 
@@ -121,5 +121,5 @@ class Preprocessor:
         userFeature['min_sum'] = min_sum_list
         userFeature['avg_sum'] = avg_sum_list
         userFeature.to_csv(
-            self.trainDataDir + "userfeature.txt", index=False, sep=',')
+            filePath, index=False, sep=',')
         return userFeature

@@ -16,7 +16,7 @@ washing.py
 preprocessor.py
 
 ## 得到用户特征值
-`luid,count,max_fcs,min_fcs,avg_fcs,max_ccs,min_ccs,avg_ccs,max_lcs,min_lcs,avg_lcs,max_sum,min_sum,avg_sum,above_avg_rate`
+`luid,count,max_fcs,min_fcs,avg_fcs,max_ccs,min_ccs,avg_ccs,max_lcs,min_lcs,avg_lcs,max_sum,min_sum,avg_sum,above_avg_rate（未研究）`
 
 要先对数据集有个大概的认识
 
@@ -36,6 +36,10 @@ content要怎么从中选取关键词
 如果一个用户的`avg_sum`<1,那么取其`max_sum`作为预测值
 
 否则取其`avg_sum`作为预测值
+
+# 问题探究
+* 发送量很大的用户互动数为0，探究其内容特征
+
 
 # 参考资料
 

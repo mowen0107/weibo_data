@@ -14,10 +14,10 @@ import errno
 
 class WashUserFeature:
     def __init__(self):
-        self.trainDataDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        # self.trainDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/"
-        self.inputFilePath = self.trainDataDir + "userfeature.txt"
-        self.outputFilePath = self.trainDataDir + "washeduserfeature.txt"
+        # self.userFeatureDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        self.userFeatureDir = "/Users/hzt/lab/data_miming/weibo_data/temp/userfeature/"
+        self.inputFilePath = self.userFeatureDir + "userfeature.txt"
+        self.outputFilePath = self.userFeatureDir + "washeduserfeature.txt"
 
     def run(self):
         ''' 对得到的用户特征进行清洗

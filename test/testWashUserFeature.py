@@ -9,10 +9,12 @@ import sys
 sys.path.append('..')
 from washuserfeature import WashUserFeature
 
+
 def main():
     washUserFeature = WashUserFeature()
     washUserFeature.run()
     print("------DONE------")
+
 
 if __name__ == '__main__':
     main()
