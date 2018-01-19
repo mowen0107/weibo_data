@@ -27,19 +27,19 @@ class Predict():
             encoding='utf-8')
         self.testData = pd.read_csv(
             self.testDataFile,
-            names=['luid', 'mid', 'time', 'cont'],
+            names=['uid', 'mid', 'time', 'cont'],
             sep=',',
             encoding='utf-8')
 
     def test(self):
-        test_luid = 'c60533fdb5278412b14379f693f77dd5'
-        luid_list = list(self.userFeature.index)
-        print(luid_list)
-        if test_luid in luid_list:
+        test_uid = 'c60533fdb5278412b14379f693f77dd5'
+        uid_list = list(self.userFeature.index)
+        print(uid_list)
+        if test_uid in uid_list:
             print("find it")
 
     def predict(self):
-        ''' 在清洗过后的训练集中查找luid，若存在则进行预测
+        ''' 在清洗过后的训练集中查找uid，若存在则进行预测
             若不存在则判断为0
             td前缀表示testdata，uf前缀表示userfeature
         '''
@@ -48,17 +48,17 @@ class Predict():
         lcs_list = []
         sum_list = []
         testdataIndex = self.testData.index
-        uf_luid_list = list(self.userFeature.index)
+        uf_uid_list = list(self.userFeature.index)
         for index in testdataIndex:
-            td_luid = self.testData.loc[index]['luid']
-            print("------DEBUG LOG :", index, td_luid)
+            td_uid = self.testData.loc[index]['uid']
+            print("------DEBUG LOG :", index, td_uid)
             pre_fcs = 0
             pre_ccs = 0
             pre_lcs = 0
             pre_sum = 0
-            if td_luid in uf_luid_list:
-                print("------DEBUG LOG FIND:", td_luid)
-                subData = self.userFeature.loc[td_luid]
+            if td_uid in uf_uid_list:
+                print("------DEBUG LOG FIND:", td_uid)
+                subData = self.userFeature.loc[td_uid]
                 if subData['avg_fcs'] < 1:
                     pre_fcs = subData['max_fcs'].astype(int)
                 else:
@@ -80,7 +80,7 @@ class Predict():
         self.testData['ccs'] = ccs_list
         self.testData['lcs'] = lcs_list
         self.testData['sum'] = sum_list
-        newCols = ['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
+        newCols = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
         self.testData = self.testData.ix[:, newCols]
         self.testData.to_csv(
             self.resultFile, index=False, sep=",", encoding='utf-8')

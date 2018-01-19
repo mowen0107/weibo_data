@@ -16,7 +16,7 @@ washing.py
 preprocessor.py
 
 ## 得到用户特征值
-`luid,count,max_fcs,min_fcs,avg_fcs,max_ccs,min_ccs,avg_ccs,max_lcs,min_lcs,avg_lcs,max_sum,min_sum,avg_sum,above_avg_rate（未研究）`
+`uid,count,max_fcs,min_fcs,avg_fcs,max_ccs,min_ccs,avg_ccs,max_lcs,min_lcs,avg_lcs,max_sum,min_sum,avg_sum,above_avg_rate（未研究）`
 * 要先对数据集有个大概的认识
 * 有多少条数据
 * 用户有多少人
@@ -42,6 +42,7 @@ preprocessor.py
 # 问题探究
 * 发送量很大的用户互动数为0，探究其内容特征
 * 得到了用户特征、内容特征、时间特征之后，如果把这些特征联合起来得到最后的结果？（使用什么算法？？？）
+* 能不能把时间和内容之间建立联系，找出那段时间的话题是什么
 
 ---
 ---

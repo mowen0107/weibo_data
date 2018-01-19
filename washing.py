@@ -2,8 +2,8 @@
 ''' Author: HZT
     Create date: 20180114
     Last modified by: HZT
-    Last modified date: 20180115
-    Last modified thing: 增加sum字段
+    Last modified date: 20180119
+    Last modified thing: 修改luid为uid
 '''
 import pandas as pd
 import numpy as np
@@ -54,7 +54,7 @@ class Washing():
     def deleteWrongLines(self):
         ''' 删除无效的行
         '''
-        nameList = ['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont']
+        nameList = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont']
         data = pd.read_csv(
             self.outputPath + self.trainDataFile, sep=',', names=nameList)
         for index in data.index:
@@ -72,7 +72,7 @@ class Washing():
         ''' 求出sum并写入文件中
         '''
         filePath = self.outputPath + "washedTrainData.txt"
-        newCols = ['luid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
+        newCols = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
         trainData = pd.read_csv(filePath, sep=',', header=0)
         trainData['sum'] = trainData.apply(
             lambda x: x['fcs'] + x['ccs'] + x['lcs'], axis=1)

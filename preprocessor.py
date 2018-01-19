@@ -38,7 +38,7 @@ class Preprocessor:
 
     def getUserFeature(self):
         ''' 得到用户特征，包括各项数值的极值、平均值
-                luid 用户id
+                uid 用户id
                 count 出现的频次
                 max_fcs 最大转发量
                 min_fcs 最小转发量
@@ -58,13 +58,13 @@ class Preprocessor:
         fileName = "userfeature.txt"
         filePath = self.trainDataDir + fileName
         trainData = copy.deepcopy(self.trainData)
-        userCount = trainData['luid'].value_counts()
+        userCount = trainData['uid'].value_counts()
         userList = copy.deepcopy(userCount.index)
         userCount.to_csv(
             self.trainDataDir + "usercount.txt", index=True, sep=',')
         userFeature = pd.read_csv(
             self.trainDataDir + "usercount.txt",
-            names=['luid', 'count'],
+            names=['uid', 'count'],
             sep=',')
         max_fcs_list = []
         min_fcs_list = []
@@ -80,9 +80,9 @@ class Preprocessor:
         avg_sum_list = []
         i = 0
         for user in userList:
-            # 筛选出luid相同的行
-            print("------DEBUG LOG luid:", i, user)
-            subData = trainData.loc[(trainData['luid'] == user)]
+            # 筛选出uid相同的行
+            print("------DEBUG LOG uid:", i, user)
+            subData = trainData.loc[(trainData['uid'] == user)]
             max_fcs = subData['fcs'].max()
             min_fcs = subData['fcs'].min()
             avg_fcs = subData['fcs'].mean()
