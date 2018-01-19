@@ -120,6 +120,5 @@ class Preprocessor:
         userFeature['max_sum'] = max_sum_list
         userFeature['min_sum'] = min_sum_list
         userFeature['avg_sum'] = avg_sum_list
-        userFeature.to_csv(
-            filePath, index=False, sep=',')
+        userFeature.to_csv(filePath, index=False, sep=',', encoding='utf-8')
         return userFeature
