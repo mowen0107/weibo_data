@@ -7,11 +7,11 @@
 '''
 import sys
 sys.path.append('..')
-from preprocessor import Preprocessor
+from userfeature import UserFeature
 
 def main():
-    preprocessor = Preprocessor()
-    # preprocessor.getUserFeature()
+    userFeature = UserFeature()
+    userFeature.getUserFeature()
     print("------DONE------")
 
 if __name__ == '__main__':

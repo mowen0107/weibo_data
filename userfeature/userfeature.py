@@ -2,8 +2,8 @@
 ''' Author: HZT
     Create date: 20180113
     Last modified by: HZT
-    Last modified date: 20180115
-    Last modified thing: 添加用户分布分析
+    Last modified date: 20180119
+    Last modified thing: 修改luid为uid
 '''
 import numpy as np
 import pandas as pd
@@ -12,7 +12,7 @@ import copy
 import errno
 
 
-class Preprocessor:
+class UserFeature:
     ''' 对数据进行预处理，了解大致情况
     '''
 
