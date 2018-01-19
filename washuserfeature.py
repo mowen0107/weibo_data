@@ -17,7 +17,7 @@ class WashUserFeature:
         # self.userFeatureDir = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
         self.userFeatureDir = "/Users/hzt/lab/data_miming/weibo_data/temp/userfeature/"
         self.inputFilePath = self.userFeatureDir + "userfeature.txt"
-        self.outputFilePath = self.userFeatureDir + "washeduserfeature.txt"
+        self.outputFilePath = self.userFeatureDir + "washed_userfeature.txt"
 
     def run(self):
         ''' 对得到的用户特征进行清洗

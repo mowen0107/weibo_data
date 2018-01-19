@@ -13,5 +13,5 @@ import errno
 
 class Predict():
     def __init__(self):
-        self.trainDataFile = "washeduserfeature.txt"
-        self.testDataFile = "weibo_predict_data.txt"
+        self.trainDataFile = "washed_userfeature.txt"
+        self.testDataFile = "washed_test_data.txt"
