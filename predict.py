@@ -5,10 +5,7 @@
     Last modified date: 20180119
     Last modified thing: 完成predict函数,增加test函数
 '''
-import numpy as np
 import pandas as pd
-import pandas.errors as pderr
-import errno
 
 
 class Predict():

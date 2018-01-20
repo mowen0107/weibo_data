@@ -5,10 +5,15 @@
     Last modified date: 20180119
     Last modified thing: 创建文件
 '''
+import sys
+sys.path.append('..')
+
+from contentfeature import ContentFeature
 
 
 def main():
-    pass
+    contentFeature = ContentFeature()
+    contentFeature.testJieBa()
 
 
 if __name__ == '__main__':

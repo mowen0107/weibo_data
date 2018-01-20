@@ -6,8 +6,6 @@
     Last modified thing: 修改luid为uid
 '''
 import pandas as pd
-import numpy as np
-from numpy import nan as NA
 
 
 class Washing():

@@ -9,7 +9,6 @@ import numpy as np
 import pandas as pd
 import pandas.errors as pderr
 import copy
-import errno
 
 
 class UserFeature:
