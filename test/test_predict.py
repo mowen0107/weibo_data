@@ -13,6 +13,7 @@ from predict import Predict
 def main():
     predict = Predict()
     predict.predict()
+    predict.getPrecision()
     # predict.test()
 
 

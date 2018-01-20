@@ -2,8 +2,8 @@
 ''' Author: HZT
     Create date: 20180114
     Last modified by: HZT
-    Last modified date: 20180119
-    Last modified thing: 修改luid为uid
+    Last modified date: 20180120
+    Last modified thing: 增加rank字段
 '''
 import pandas as pd
 

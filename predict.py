@@ -11,11 +11,12 @@ import pandas as pd
 class Predict():
     def __init__(self):
         self.userFeatureDir = "/Users/hzt/lab/data_miming/weibo_data/temp/userfeature/"
-        self.testDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/testdata/"
+        self.testDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/traindata/"
         self.resultDir = "/Users/hzt/lab/data_miming/weibo_data/temp/result/"
         self.userFeatureFile = self.userFeatureDir + "washed_userfeature.txt"
-        self.testDataFile = self.testDataDir + "washed_test_data.txt"
-        self.resultFile = self.resultDir + "result.txt"
+        self.testDataFile = self.testDataDir + "washedTrainData.txt"
+        self.resultFile = self.resultDir + "traindata_result.txt"
+        self.precisionFile = self.resultDir + "precision.txt"
         self.userFeature = pd.read_csv(
             self.userFeatureFile,
             header=0,
@@ -23,10 +24,7 @@ class Predict():
             index_col=0,
             encoding='utf-8')
         self.testData = pd.read_csv(
-            self.testDataFile,
-            names=['uid', 'mid', 'time', 'cont'],
-            sep=',',
-            encoding='utf-8')
+            self.testDataFile, header=0, sep=',', encoding='utf-8')
 
     def test(self):
         test_uid = 'c60533fdb5278412b14379f693f77dd5'
@@ -44,6 +42,7 @@ class Predict():
         ccs_list = []
         lcs_list = []
         sum_list = []
+        rank_list = []
         testdataIndex = self.testData.index
         uf_uid_list = list(self.userFeature.index)
         for index in testdataIndex:
@@ -53,31 +52,72 @@ class Predict():
             pre_ccs = 0
             pre_lcs = 0
             pre_sum = 0
+            pre_rank = 1
             if td_uid in uf_uid_list:
                 print("------DEBUG LOG FIND:", td_uid)
                 subData = self.userFeature.loc[td_uid]
                 if subData['avg_fcs'] < 1:
-                    pre_fcs = subData['max_fcs'].astype(int)
+                    pre_fcs = 1
+                    # pre_fcs = subData['max_fcs'].astype(int)
                 else:
                     pre_fcs = subData['avg_fcs'].astype(int)
                 if subData['avg_ccs'] < 1:
-                    pre_ccs = subData['max_ccs'].astype(int)
+                    pre_ccs = 1
+                    # pre_ccs = subData['max_ccs'].astype(int)
                 else:
                     pre_ccs = subData['avg_ccs'].astype(int)
                 if subData['avg_lcs'] < 1:
-                    pre_lcs = subData['max_lcs'].astype(int)
+                    pre_lcs = 1
+                    # pre_lcs = subData['max_lcs'].astype(int)
                 else:
                     pre_lcs = subData['avg_lcs'].astype(int)
                 pre_sum = pre_fcs + pre_ccs + pre_lcs
+                if pre_sum < 6:
+                    pre_rank = 1
+                elif pre_sum < 11:
+                    pre_rank = 2
+                elif pre_sum < 51:
+                    pre_rank = 3
+                elif pre_sum < 101:
+                    pre_rank = 4
+                else:
+                    pre_rank = 5
             fcs_list.append(pre_fcs)
             ccs_list.append(pre_ccs)
             lcs_list.append(pre_lcs)
             sum_list.append(pre_sum)
-        self.testData['fcs'] = fcs_list
-        self.testData['ccs'] = ccs_list
-        self.testData['lcs'] = lcs_list
-        self.testData['sum'] = sum_list
-        newCols = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
+            rank_list.append(pre_rank)
+        self.testData['pre_fcs'] = fcs_list
+        self.testData['pre_ccs'] = ccs_list
+        self.testData['pre_lcs'] = lcs_list
+        self.testData['pre_sum'] = sum_list
+        self.testData['pre_rank'] = rank_list
+        newCols = [
+            'uid', 'mid', 'fcs', 'pre_fcs', 'ccs', 'pre_ccs', 'lcs', 'pre_lcs',
+            'sum', 'pre_sum', 'rank', 'pre_rank'
+        ]
         self.testData = self.testData.ix[:, newCols]
         self.testData.to_csv(
             self.resultFile, index=False, sep=",", encoding='utf-8')
+
+    def getPrecision(self):
+        ''' 获得最后的精确度
+        '''
+        resultData = pd.read_csv(
+            self.resultFile, header=0, sep=',', encoding='utf-8')
+        rightValue = 0
+        totalValue = 0
+        rightNumList = [0, 0, 0, 0, 0]
+        totalNumList = [0, 0, 0, 0, 0]
+        for index in resultData.index:
+            print("------DEBUG LOG :", index)
+            rank = resultData.loc[index]['rank']
+            pre_rank = resultData.loc[index]['pre_rank']
+            rankIndex = rank - 1
+            totalNumList[rankIndex] += 1  # 这个档位的微博数加1
+            if rank == pre_rank:
+                rightNumList[rankIndex] += 1  # 如果预测对了，这个档位的预测对微博数加1
+        rightValue = rightNumList[0] + rightNumList[1] * 10 + rightNumList[2] * 50 + rightNumList[3] * 100 + rightNumList[4] * 200
+        totalValue = totalNumList[0] + totalNumList[1] * 10 + totalNumList[2] * 50 + totalNumList[3] * 100 + totalNumList[4] * 200
+        precision = rightValue / totalValue
+        print("------准确率为：", precision)
