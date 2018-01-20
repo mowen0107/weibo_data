@@ -9,12 +9,14 @@ import sys
 sys.path.append('..')
 from washing import Washing
 
+
 def main():
     washing = Washing()
     # washing.washTrainData()
     # washing.washTestData()
-    washing.addSum()
+    washing.addSumRank()
     print("------DONE------")
+
 
 if __name__ == '__main__':
     main()

@@ -14,24 +14,26 @@ class Washing():
     '''
 
     def __init__(self):
-        self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
-        self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
-        # self.originPath = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
-        # self.outputPath = "/Users/hzt/lab/data_miming/weibo_data/temp/"
-        self.trainDataFile = "weibo_train_data2.txt"
-        self.testDataFile = "weibo_predict_data.txt"
+        # self.originPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/pro3_data/"
+        # self.outputPath = "C:/Users/yl/Desktop/data_mining/Task3/weibo_data/temp/"
+        self.originDir = "/Users/hzt/lab/data_miming/weibo_data/pro3_data/"
+        self.trainDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/traindata/"
+        self.testDataDir = "/Users/hzt/lab/data_miming/weibo_data/temp/testdata/"
+        self.originTrainDataFile = self.originDir + "weibo_train_data2.txt"
+        self.trianDataFile = self.trainDataDir + "weibo_train_data2.txt"
+        self.testDataFile = self.testDataDir + "weibo_predict_data.txt"
+        self.nosumTrainDataFile = self.trainDataDir + "nosumTrainData.txt"
+        self.washedTrainDataFile = self.trainDataDir + "washedTrainData.txt"
 
     def washTrainData(self):
         ''' 进行训练集的清洗
         '''
-        readFilePath = self.originPath + self.trainDataFile
-        writeFilePath = self.outputPath + self.trainDataFile
-        originTrainData = self.readFile(readFilePath)
+        originTrainData = self.readFile(self.originTrainDataFile)
         washedData = []
         for line in originTrainData:
             washedLine = self.replaceTable(line)
             washedData.append(washedLine)
-        self.writeFile(writeFilePath, washedData)
+        self.writeFile(self.trianDataFile, washedData)
         self.deleteWrongLines()
         print("------DONE------")
 
@@ -53,8 +55,7 @@ class Washing():
         ''' 删除无效的行
         '''
         nameList = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'cont']
-        data = pd.read_csv(
-            self.outputPath + self.trainDataFile, sep=',', names=nameList)
+        data = pd.read_csv(self.trianDataFile, sep=',', names=nameList)
         for index in data.index:
             # print("------Index:",index,data.loc[index]['fcs'])
             fcs = data.loc[index]['fcs']
@@ -63,23 +64,27 @@ class Washing():
             if pd.isnull(fcs) and pd.isnull(ccs) and pd.isnull(lcs):
                 print("------NA:", index)
                 data.drop(index, axis=0, inplace=True)
-        data.to_csv(
-            self.outputPath + "washedTrainData.txt", index=False, sep=",")
+        data.to_csv(self.nosumTrainDataFile, index=False, sep=",")
 
-    def addSum(self):
+    def addSumRank(self):
         ''' 求出sum并写入文件中
         '''
-        filePath = self.outputPath + "washedTrainData.txt"
-        newCols = ['uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'cont']
+        filePath = self.nosumTrainDataFile
+        newCols = [
+            'uid', 'mid', 'time', 'fcs', 'ccs', 'lcs', 'sum', 'rank', 'cont'
+        ]
         trainData = pd.read_csv(filePath, sep=',', header=0)
         trainData['sum'] = trainData.apply(
             lambda x: x['fcs'] + x['ccs'] + x['lcs'], axis=1)
+        trainData['rank'] = trainData.apply(
+            lambda x: 1 if x['sum'] < 6 else 2 if x['sum'] < 11 else 3 if x['sum'] < 51 else 4 if x['sum'] < 101 else 5,
+            axis=1)
         trainData['fcs'] = trainData['fcs'].astype('int')
         trainData['ccs'] = trainData['ccs'].astype('int')
         trainData['lcs'] = trainData['lcs'].astype('int')
         trainData['sum'] = trainData['sum'].astype('int')
         trainData = trainData.ix[:, newCols]
-        trainData.to_csv(self.outputPath + "washedTrainData.txt", index=False, sep=",")
+        trainData.to_csv(self.washedTrainDataFile, index=False, sep=",")
 
     def readFile(self, filePath):
         ''' 读文件操作，返回一个很大的string
@@ -93,7 +98,7 @@ class Washing():
             print("------ERROR LOG:", e)
             return None
         finally:
-            if originFile != None:
+            if originFile is not None:
                 originFile.close()
         return originTrainData
 
