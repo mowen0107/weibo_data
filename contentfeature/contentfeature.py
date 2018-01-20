@@ -16,7 +16,8 @@ class ContentFeature():
         self.contentFeatureDir = "/Users/hzt/lab/data_miming/weibo_data/temp/contentfeature/"
         self.washedTrainDataFile = self.trainDateDir + "washedTrainData.txt"
         self.contentFeature_1day = self.contentFeatureDir + "contentfeature_1day.txt"
-        # self.trainData = pd.read_csv(self.washedTrainDataFile, header=0, sep=',', encoding='utf-8')
+        self.trainData = pd.read_csv(
+            self.washedTrainDataFile, header=0, sep=',', encoding='utf-8')
 
     def testJieBa(self):
         ''' 测试jieba的用法
@@ -28,4 +29,13 @@ class ContentFeature():
         print("------TEST LOG :", outputList)
 
     def getContentFeature(self):
-        pass
+        r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
+        wordDict = {}
+        for index in self.trainData.index:
+            print("------DEBUG LOG :", index)
+            cont = self.trainData.loc[index]['cont']
+            reCont = re.sub(r, "", cont)
+            cutWordList = jieba.lcut(reCont, cut_all=False)
+            for word in cutWordList:
+                if wordDict.has_key(word):
+                    pass

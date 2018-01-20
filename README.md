@@ -32,9 +32,9 @@ preprocessor.py
 ## 得到内容特征
 1. 得到微博出现次数最多的10个词及其出现次数和词频（出现该词的微博数/总微博数），以及出现该词的微博的各参数的最大值、平均值
 
-date | word | count | rate | max_fcs | avg_fcs | max_ccs | avg_ccs | max_lcs | avg_lcs
+word | count | max_fcs | avg_fcs | max_ccs | avg_ccs | max_lcs | avg_lcs | max_sum | avg_sum
 :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-:
-2015-04-13 | 红包 | 20 | 0.4 | 22 | 18 | 30 | 15 | 35 | 18 
+红包 | 20 | 22 | 18 | 30 | 15 | 35 | 18 | 98 | 80
 
 ## 得到时间特征
 
