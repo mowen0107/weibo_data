@@ -32,7 +32,10 @@ class ContentFeature():
         df = pd.DataFrame(columns=('uid', 'mid', 'word'))  # 生成空的pandas表
         df.loc[0] = [1234, 5678, 'hello']
         df.to_csv(
-            self.contentFeatureDir + "test.txt", sep=',', encoding='utf-8')
+            self.contentFeatureDir + "test.txt",
+            sep=',',
+            encoding='utf-8',
+            index=False)
 
     def getContentFeature(self):
         r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
