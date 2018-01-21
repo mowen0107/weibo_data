@@ -6,6 +6,7 @@
     Last modified thing: 增加rank字段
 '''
 import pandas as pd
+import numpy as np
 
 
 class Washing():
@@ -124,6 +125,12 @@ class Washing():
         '''
         inputData = pd.read_csv(
             self.washedTrainDataFile, sep=',', header=0, encoding='utf-8')
-        inputData['cont'].fillna('.')
+        for index in inputData.index:
+            cont = inputData.loc[index]['cont']
+            if np.isnan(cont):
+                print("DEBUG LOG NAN CONT :", index)
+                break
+        # inputData['cont'].fillna('。')
+        # inputData['cont'].replace('', '。')
         inputData.to_csv(
             self.washedTrainDataFile, sep=",", encoding='utf-8', index=False)
