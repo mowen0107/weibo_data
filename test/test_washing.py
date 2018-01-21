@@ -14,7 +14,8 @@ def main():
     washing = Washing()
     # washing.washTrainData()
     # washing.washTestData()
-    washing.addSumRank()
+    # washing.addSumRank()
+    washing.washCont()
     print("------DONE------")
 
 

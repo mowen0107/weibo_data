@@ -118,3 +118,15 @@ class Washing():
         resultStr = string.replace('\t', ',')
         # print("------After replace:\n",resultStr)
         return resultStr
+
+    def washCont(self):
+        ''' cont字段可能出现nan
+        '''
+        inputData = pd.read_csv(
+            self.washedTrainDataFile, sep=',', header=0, encoding='utf-8')
+        for index in inputData.index:
+            cont = inputData.loc[index]['cont']
+            if pd.isnull(cont):
+                print("------DEBUG LOG FIND NAN :", index)
+                inputData.loc[index]['cont'] = ""
+        inputData.to_csv(self.washedTrainDataFile, sep=",", encoding='utf-8')
