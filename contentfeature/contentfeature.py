@@ -23,8 +23,8 @@ class ContentFeature():
     def testJieBa(self):
         ''' 测试jieba的用法
         '''
-        r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
-        originStr = "我叫#黄子《韩国》廷#，@hzt"
+        r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）— ]+'
+        originStr = "我叫#黄子《韩国 》廷#，@hzt"
         reStr = re.sub(r, '', originStr)
         outputList = jieba.lcut(reStr, cut_all=False)
         print("------TEST LOG :", outputList)
@@ -42,7 +42,7 @@ class ContentFeature():
         ''' 把每条微博里的每个词抽出来，每行是[uid,mid,word]，然后删除重复行
         '''
         df = pd.DataFrame(columns=('uid', 'mid', 'word'))  # 生成空的pandas表
-        r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
+        r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）— ]+'
         dfIndex = 0
         for index in self.trainData.index:
             if index > 300:
