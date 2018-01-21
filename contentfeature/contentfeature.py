@@ -37,14 +37,25 @@ class ContentFeature():
             encoding='utf-8',
             index=False)
 
-    def getContentFeature(self):
+    def getWordSplit(self):
+        ''' 把每条微博里的每个词抽出来，每行是[uid,mid,word]，然后删除重复行
+        '''
+        df = pd.DataFrame(columns=('uid', 'mid', 'word'))  # 生成空的pandas表
         r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
-        wordDict = {}
+        dfIndex = 0
         for index in self.trainData.index:
             print("------DEBUG LOG :", index)
+            uid = self.trainData.loc[index]['uid']
+            mid = self.trainData.loc[index]['mid']
             cont = self.trainData.loc[index]['cont']
             reCont = re.sub(r, "", cont)
             cutWordList = jieba.lcut(reCont, cut_all=False)
             for word in cutWordList:
-                if wordDict.has_key(word):
-                    pass
+                df.loc[dfIndex] = [uid, mid, word]
+                dfIndex += 1
+        dfDroped = df.drop_duplicates()  # 删除同一条微博中的重复的词
+        dfDroped.to_csv(
+            self.contentFeatureDir + "splitedword.txt",
+            sep=',',
+            index=False,
+            encoding='utf-8')

@@ -14,7 +14,9 @@ from contentfeature import ContentFeature
 def main():
     contentFeature = ContentFeature()
     # contentFeature.testJieBa()
-    contentFeature.testDataFrame()
+    # contentFeature.testDataFrame()
+    contentFeature.getWordSplit()
+    print("------DONE------")
 
 
 if __name__ == '__main__':
