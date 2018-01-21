@@ -13,7 +13,8 @@ from contentfeature import ContentFeature
 
 def main():
     contentFeature = ContentFeature()
-    contentFeature.testJieBa()
+    # contentFeature.testJieBa()
+    contentFeature.testDataFrame()
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ class ContentFeature():
         self.trainDateDir = "/Users/hzt/lab/data_miming/weibo_data/temp/traindata/"
         self.contentFeatureDir = "/Users/hzt/lab/data_miming/weibo_data/temp/contentfeature/"
         self.washedTrainDataFile = self.trainDateDir + "washedTrainData.txt"
-        self.contentFeature_1day = self.contentFeatureDir + "contentfeature_1day.txt"
+        self.contentFeature = self.contentFeatureDir + "contentfeature.txt"
         self.trainData = pd.read_csv(
             self.washedTrainDataFile, header=0, sep=',', encoding='utf-8')
 
@@ -27,6 +27,12 @@ class ContentFeature():
         reStr = re.sub(r, '', originStr)
         outputList = jieba.lcut(reStr, cut_all=False)
         print("------TEST LOG :", outputList)
+
+    def testDataFrame(self):
+        df = pd.DataFrame(columns=('uid', 'mid', 'word'))  # 生成空的pandas表
+        df.loc[0] = [1234, 5678, 'hello']
+        df.to_csv(
+            self.contentFeatureDir + "test.txt", sep=',', encoding='utf-8')
 
     def getContentFeature(self):
         r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
