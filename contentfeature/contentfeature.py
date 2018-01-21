@@ -51,8 +51,6 @@ class ContentFeature():
             uid = self.trainData.loc[index]['uid']
             mid = self.trainData.loc[index]['mid']
             cont = self.trainData.loc[index]['cont']
-            if np.isnan(cont):
-                cont = ""
             reCont = re.sub(r, "", cont)
             cutWordList = jieba.lcut(reCont, cut_all=False)
             for word in cutWordList:
