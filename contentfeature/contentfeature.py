@@ -6,6 +6,7 @@
     Last modified thing: 创建文件
 '''
 import pandas as pd
+import numpy as np
 import re
 import jieba
 
@@ -44,10 +45,14 @@ class ContentFeature():
         r = '[’!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~，。？”“‘；：《》【】「」！¥…（）—]+'
         dfIndex = 0
         for index in self.trainData.index:
+            if index > 300:
+                break
             print("------DEBUG LOG :", index)
             uid = self.trainData.loc[index]['uid']
             mid = self.trainData.loc[index]['mid']
             cont = self.trainData.loc[index]['cont']
+            if np.isnan(cont):
+                cont = ""
             reCont = re.sub(r, "", cont)
             cutWordList = jieba.lcut(reCont, cut_all=False)
             for word in cutWordList:
