@@ -129,4 +129,5 @@ class Washing():
             if pd.isnull(cont):
                 print("------DEBUG LOG FIND NAN :", index)
                 inputData.loc[index]['cont'] = ""
-        inputData.to_csv(self.washedTrainDataFile, sep=",", encoding='utf-8')
+        inputData.to_csv(
+            self.washedTrainDataFile, sep=",", encoding='utf-8', index=False)
